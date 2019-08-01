@@ -4,9 +4,9 @@ public class Test {
 
     public static void main(String[] args){
 
-        AndGate and_gate = new AndGate();
-        OrGate or_gate = new OrGate();
-        NandGate nand_gate = new NandGate();
+        Perceptron and_gate = new AndGate();
+        Perceptron or_gate = new OrGate();
+        Perceptron nand_gate = new NandGate();
 
         double[] set_1 = {1,1};
         double[] set_2 = {1,0};
