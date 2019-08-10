@@ -1,6 +1,20 @@
 package tarea1;
 
+import java.util.Random;
+import org.jfree.ui.RefineryUtilities;
+
 public class Test {
+
+    public static double[][] generate_random_dataset(int rows, int cols){
+        Random r = new Random();
+        double[][] dataset = new double[rows][cols];
+        for(int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++){
+                dataset[i][j] = r.nextDouble();
+            }
+        }
+        return dataset;
+    }
 
     public static void main(String[] args){
 
