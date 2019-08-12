@@ -3,32 +3,43 @@ package tarea1;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.jfree.ui.ApplicationFrame;
+import java.awt.Color;
+import javax.swing.*;
 
-public class MyPlot extends ApplicationFrame{
+public class MyPlot extends JFrame {
 
     public MyPlot(String title, double[][] dataset){
         super(title);
-        final XYSeries series = new XYSeries("Dataset MyPlot");
+        XYSeries series1 = new XYSeries("1");
+        XYSeries series2 = new XYSeries("2");
+
         for(int i=0; i<dataset.length; i++){
-            series.add(dataset[i][0], dataset[i][1]);
+            if(Math.round(dataset[i][2]) == 0){
+                series1.add(dataset[i][0], dataset[i][1]);
+            }
+            else {
+                series2.add(dataset[i][0], dataset[i][1]);
+            }
         }
-        final XYSeriesCollection data = new XYSeriesCollection(series);
-        final JFreeChart chart = ChartFactory.createXYLineChart(
+
+        XYSeriesCollection data = new XYSeriesCollection();
+        data.addSeries(series1);
+        data.addSeries(series2);
+
+        JFreeChart chart = ChartFactory.createScatterPlot(
                 "Dataset",
                 "X",
                 "Y",
-                data,
-                PlotOrientation.VERTICAL,
-                true,
-                true,
-                false
+                 data
         );
-        final ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
-        setContentPane(chartPanel);
+        XYPlot plot = (XYPlot)chart.getPlot();
+        plot.setBackgroundPaint(new Color(255,228,196));
+
+        // Create Panel
+        ChartPanel panel = new ChartPanel(chart);
+        setContentPane(panel);
     }
 }
