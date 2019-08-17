@@ -169,7 +169,7 @@ public class NeuralNetwork {
         // For each iteration
         for(int it=0; it<iterations; it++){
 
-            System.out.println("Step = "+Integer.toString(it));
+            System.out.println("Step = "+Integer.toString(it+1));
 
             // Forward propagation
             ArrayList<double[][]> cache_list = forward_prop(data);
@@ -180,11 +180,14 @@ public class NeuralNetwork {
         }
     }
 
-    public void eval(double[][] eval_data, double[][] eval_target){
+    public DataTuple eval(double[][] eval_data, double[][] eval_target){
 
         // Initialize counters
         double correct_answers = 0;
         double total_answers = 0;
+
+        // Initialize prediction matrix
+        double[][] outputs = new double[eval_target.length][eval_target[0].length];
 
         // For each row in data
         for(int i=0; i<eval_data.length; i++){
@@ -200,6 +203,7 @@ public class NeuralNetwork {
                 if(Math.round(output[j]) == Math.round(eval_target[i][j])){
                     correct_answers += 1.0/output.length;
                 }
+                outputs[i][j] = output[j];
             }
 
             total_answers++;
@@ -207,6 +211,8 @@ public class NeuralNetwork {
 
         double acc = correct_answers / total_answers;
         System.out.println("Accuracy = "+Double.toString(acc));
+
+        return new DataTuple(eval_data, outputs);
     }
 
 }

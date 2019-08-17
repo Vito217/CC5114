@@ -35,10 +35,10 @@ public class MyPlot extends JFrame {
         XYSeries series2 = new XYSeries("2");
 
         double[][] dataset = dt.getInputs();
-        double[] output = dt.getOutput();
+        double[][] output = dt.getOutput();
 
         for(int i=0; i<dataset.length; i++){
-            if(Math.round(output[i]) == 0){
+            if(Math.round(output[i][0]) == 0){
                 series1.add(dataset[i][0], dataset[i][1]);
             }
             else {
