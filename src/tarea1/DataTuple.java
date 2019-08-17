@@ -3,9 +3,9 @@ package tarea1;
 public class DataTuple {
 
     private double[][] inputs;
-    private double[] output;
+    private double[][] output;
 
-    public DataTuple(double[][] inputs, double[] output){
+    public DataTuple(double[][] inputs, double[][] output){
         this.inputs = inputs;
         this.output = output;
     }
@@ -14,7 +14,7 @@ public class DataTuple {
         return inputs;
     }
 
-    public double[] getOutput(){
+    public double[][] getOutput(){
         return output;
     }
 }

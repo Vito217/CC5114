@@ -25,14 +25,23 @@ public class NeuralNetwork {
         // s    in|_  _  _  _ _ _ _ _ _
         //         j1 j2 j3 . . . . . jm
 
+        // Initialize cache list
         ArrayList<double[][]> cache_list = new ArrayList<>();
+        cache_list.add(layers[0].layer_cache(data));
 
-        // For each layer in the network
-        for(Layer layer: layers){
+        // For each layer remaining in the network
+        for(int i=1; i<layers.length; i++){
 
-            // We get the layer cache (outputs for each data row)
-            double[][] layer_cache = layer.layer_cache(data);
-            cache_list.add(layer_cache);
+            // We get the layer cache
+            double[][] input = cache_list.get(i-1);
+            double[][] aux_data = new double[input[0].length][input.length];
+            for(int j=0; j<input[0].length; j++){
+                for(int k=0; k<input.length; k++){
+                    aux_data[j][k] = input[k][j];
+                }
+            }
+
+            cache_list.add(layers[i].layer_cache(aux_data));
         }
 
         return cache_list;
@@ -159,6 +168,9 @@ public class NeuralNetwork {
     public void train(double[][] data, double[][] desired_output, int iterations){
         // For each iteration
         for(int it=0; it<iterations; it++){
+
+            System.out.println("Step = "+Integer.toString(it));
+
             // Forward propagation
             ArrayList<double[][]> cache_list = forward_prop(data);
             // Backward propagation
@@ -166,6 +178,35 @@ public class NeuralNetwork {
             // Update weights
             update_weights(gradient_list);
         }
+    }
+
+    public void eval(double[][] eval_data, double[][] eval_target){
+
+        // Initialize counters
+        double correct_answers = 0;
+        double total_answers = 0;
+
+        // For each row in data
+        for(int i=0; i<eval_data.length; i++){
+
+            // Getting prediction
+            double[] output = eval_data[i];
+            for(Layer layer: layers){
+                output = layer.evaluate(output);
+            }
+
+            // Threshold is 0.5 by default
+            for(int j=0; j<output.length; j++){
+                if(Math.round(output[j]) == Math.round(eval_target[i][j])){
+                    correct_answers += 1.0/output.length;
+                }
+            }
+
+            total_answers++;
+        }
+
+        double acc = correct_answers / total_answers;
+        System.out.println("Accuracy = "+Double.toString(acc));
     }
 
 }

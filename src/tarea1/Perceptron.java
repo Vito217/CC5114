@@ -118,7 +118,7 @@ public class Perceptron {
 
         // Initialize prediction matrix
         double[][] result_data = new double[eval_data.length][eval_data[0].length];
-        double[] output = new double[eval_data.length];
+        double[][] output = new double[eval_data.length][1];
 
         // For each row in data
         for(int i=0; i<eval_data.length; i++){
@@ -136,7 +136,7 @@ public class Perceptron {
             total_answers++;
 
             // Updating predictions matrix
-            output[i] = res;
+            output[i][0] = res;
         }
         double acc = correct_answers / total_answers;
         System.out.println("Accuracy = "+Double.toString(acc));

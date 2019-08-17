@@ -114,4 +114,12 @@ public class Layer {
             neurons[i].update_weights(gradient[i]);
         }
     }
+
+    double[] evaluate(double[] data){
+        double[] output = new double[neurons.length];
+        for(int i=0; i<neurons.length; i++){
+            output[i] = neurons[i].activation_function(neurons[i].activation_value(data));
+        }
+        return output;
+    }
 }
