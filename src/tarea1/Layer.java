@@ -4,7 +4,7 @@ public class Layer {
 
     Perceptron[] neurons;
 
-    public Layer(int n_neurons, int input_size, double learning_rate, String act_fun, String loss_fun){
+    public Layer(int input_size, int n_neurons, double learning_rate, String act_fun, String loss_fun){
         neurons = new Perceptron[n_neurons];
         for(int i=0; i<n_neurons; i++){
             neurons[i] = new Perceptron(input_size, learning_rate, act_fun, loss_fun);

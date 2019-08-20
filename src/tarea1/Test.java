@@ -188,8 +188,8 @@ public class Test {
         NeuralNetwork n = new NeuralNetwork(
                 new Layer[]{
                         new Layer(
-                                3,
                                 4,
+                                3,
                                 0.1,
                                 "sigmoid",
                                 "mse"
