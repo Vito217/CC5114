@@ -132,6 +132,46 @@ public class Test {
         return matrix;
     }
 
+    private static DataTuple[] separate_train_and_eval_data(double[][] data, double[][] target, double percentage){
+
+        int total_rows = data.length;
+        int n_classes = target[0].length;
+        int rows_per_class = total_rows/n_classes;
+
+        int train_rows = (int)(total_rows*percentage);
+        int eval_rows = total_rows - train_rows;
+
+        double[][] train_data = new double[train_rows][data[0].length];
+        double[][] train_target = new double[train_rows][target[0].length];
+
+        double[][] eval_data = new double[eval_rows][data[0].length];
+        double[][] eval_target = new double[eval_rows][target[0].length];
+
+        // Getting train and eval data
+        int t = 0;
+        int e = 0;
+        for(int i=0; i<n_classes; i++){
+
+            // Training Data
+            for(int j=i*rows_per_class; j<i*rows_per_class+train_rows/n_classes; j++){
+                train_data[t] = data[j];
+                train_target[t] = target[j];
+                t++;
+            }
+
+            // Eval Data
+            for(int j=i*rows_per_class+train_rows/n_classes;
+                j<i*rows_per_class+(train_rows + eval_rows)/n_classes; j++){
+
+                eval_data[e] = data[j];
+                eval_target[e] = target[j];
+                e++;
+            }
+        }
+
+        return new DataTuple[]{new DataTuple(train_data, train_target), new DataTuple(eval_data, eval_target)};
+    }
+
     public static void main(String[] args){
 
         /**
@@ -161,38 +201,29 @@ public class Test {
         });
         **/
 
-
         // Reading dataset
         DataTuple data_tuple =
                 read_class_dataset(
-                        "C:/Users/VictorStefano/IdeaProjects/CC5114/src/tarea1/iris.data", ",");
-        double[][] data = normalize_data(data_tuple.getInputs(), 1.0, 0.0);
+                        "C:/Users/VictorStefano/IdeaProjects/CC5114/src/tarea1/seeds_dataset.txt",
+                        "\t");
+        double[][] data = data_tuple.getInputs();
         double[][] target = data_tuple.getOutput();
 
         // Splitting training data
-        double[][] train_data = new double[90][4];
-        double[][] train_target = new double[90][3];
-        for(int i=0; i<90; i++){
-            train_data[i] = data[i];
-            train_target[i] = target[i];
-        }
-
-        // Splitting evaluation data
-        double[][] eval_data = new double[60][4];
-        double[][] eval_target = new double[60][3];
-        for(int i=0; i<60; i++){
-            eval_data[i] = data[i+90];
-            eval_target[i] = target[i+90];
-        }
+        DataTuple[] train_and_eval = separate_train_and_eval_data(data, target, 0.8);
+        double[][] train_data = train_and_eval[0].getInputs();
+        double[][] train_target = train_and_eval[0].getOutput();
+        double[][] eval_data = train_and_eval[1].getInputs();
+        double[][] eval_target = train_and_eval[1].getOutput();
 
         NeuralNetwork n = new NeuralNetwork(
                 new Layer[]{
                         new Layer(
-                                4,
+                                7,
                                 3,
                                 0.1,
                                 "sigmoid",
-                                "mse"
+                                "cross"
                         )
                 }
         );
