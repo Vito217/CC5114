@@ -46,3 +46,7 @@ Se debe tener en cuenta que el programa asume que:
   <li>La clase correspondiente a cada fila se encuentra al último lugar. Así, cada fila de datos debe venir de la forma "x1,x2,x3,x4,clase1", sea cual sea el separador entre cada valor</li>
   <li>Las filas están ordenadas y agrupadas según clase. Es decir, no puede haber una clase diferente entre dos filas de igual clase</li>
 </ul>
+
+También es posible separar la data en subconjuntos de entrenamiento y evaluación usando la función <b>separate_train_and_eval_data(data, target, percentage)</b>, donde percentage es el porcentaje entre 0.00 y 1.00 de datos que se irá al subconjunto de training, mientras que el resto se irá al subconjunto de entrenamiento.
+
+Todo los elementos señalados, así como el detalle de la implementación, se encuentran en la clase Test.java
