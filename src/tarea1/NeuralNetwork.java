@@ -48,7 +48,7 @@ public class NeuralNetwork {
     }
 
     private ArrayList<double[][]> backward_prop(double[][] data, double[][] desired_output,
-                                               ArrayList<double[][]> cache_list){
+                                                ArrayList<double[][]> cache_list){
 
         // Gradient List for a single layer:
         //
@@ -95,7 +95,7 @@ public class NeuralNetwork {
     }
 
     private ArrayList<double[][]> mean_backward_prop(double[][] data, ArrayList<double[][]> gradient_list,
-                                                    ArrayList<double[][]> cache_list){
+                                                     ArrayList<double[][]> cache_list){
 
         // Final Gradient List for a single layer:
         //

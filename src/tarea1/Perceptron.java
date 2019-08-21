@@ -31,14 +31,7 @@ public class Perceptron {
     }
 
     public double activation_value(double[] inputs){
-        try{
-            if(inputs.length != weights.length) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+        assert inputs.length == weights.length;
         double res = bias;
         for(int i=0; i<inputs.length; i++){
             res += weights[i]*inputs[i];
@@ -47,48 +40,46 @@ public class Perceptron {
     }
 
     public double activation_function(double val){
-        try{
-            switch(this.activation_function){
-                case "binary":
-                    return val <= 0 ? 0 : 1;
-                case "sigmoid":
-                    return 1 / (1+Math.exp(-val));
-            }
-            throw new Exception();
-        } catch (Exception e){
-            e.printStackTrace();
-            return 0;
+        assert activation_function.equals("step") ||
+                activation_function.equals("sigmoid") ||
+                activation_function.equals("tanh");
+        switch(this.activation_function){
+            case "step":
+                return val <= 0 ? 0 : 1;
+            case "sigmoid":
+                return 1 / (1+Math.exp(-val));
+            case "tanh":
+                return (Math.exp(val)-Math.exp(-val))/(Math.exp(val)+Math.exp(-val));
         }
+        return 0;
     }
 
     public double derivative_activation_function(double val){
-        try{
-            switch(this.activation_function){
-                case "binary":
-                    return 0;
-                case "sigmoid":
-                    return val*(1-val);
-            }
-            throw new Exception();
-        } catch (Exception e){
-            e.printStackTrace();
-            return 0;
+        assert activation_function.equals("step") ||
+                activation_function.equals("sigmoid") ||
+                activation_function.equals("tanh");
+        switch(this.activation_function){
+            case "step":
+                return 0;
+            case "sigmoid":
+                return val*(1-val);
+            case "tanh":
+                return 1 - Math.pow((Math.exp(val)-Math.exp(-val))/(Math.exp(val)+Math.exp(-val)),2);
         }
+        return 0;
+
     }
 
-    public double loss_function(double ro, double dou){
-        try{
-            switch(this.loss_function){
-                case "mse":
-                    return (dou-ro)*ro*(1-ro);
-                case "cross":
-                    return (dou-ro);
-            }
-            throw new Exception();
-        } catch (Exception e){
-            e.printStackTrace();
-            return 0;
+    public double derivative_loss_function(double ro, double dou){
+        assert loss_function.equals("mse") ||
+                loss_function.equals("cross");
+        switch(this.loss_function){
+            case "mse":
+                return (dou-ro)*ro*(1-ro);
+            case "cross":
+                return (dou-ro);
         }
+        return 0;
     }
 
     public void train(int iterations, double[][] train_data, double[] train_target){
@@ -103,9 +94,9 @@ public class Perceptron {
                 // Update weights
                 for(int k = 0; k<train_data[i].length; k++){
                     weights[k] = weights[k] + learning_rate*train_data[i][k]*
-                                                loss_function(real_output, desired_output);
+                            derivative_loss_function(real_output, desired_output);
                 }
-                bias = bias + learning_rate*loss_function(real_output, desired_output);
+                bias = bias + learning_rate* derivative_loss_function(real_output, desired_output);
             }
         }
     }

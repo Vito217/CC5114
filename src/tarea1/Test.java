@@ -204,8 +204,8 @@ public class Test {
         // Reading dataset
         DataTuple data_tuple =
                 read_class_dataset(
-                        "C:/Users/VictorStefano/IdeaProjects/CC5114/src/tarea1/seeds_dataset.txt",
-                        "\t");
+                        "C:/Users/VictorStefano/IdeaProjects/CC5114/src/tarea1/iris.data",
+                        ",");
         double[][] data = data_tuple.getInputs();
         double[][] target = data_tuple.getOutput();
 
@@ -219,17 +219,17 @@ public class Test {
         NeuralNetwork n = new NeuralNetwork(
                 new Layer[]{
                         new Layer(
-                                7,
+                                4,
                                 3,
                                 0.1,
                                 "sigmoid",
-                                "cross"
+                                "mse"
                         )
                 }
         );
 
         // Train and Eval
-        n.train(train_data, train_target, 100000);
+        n.train(train_data, train_target, 50000);
         DataTuple dt = n.eval(eval_data, eval_target);
         double[][] eval_output = dt.getOutput();
 

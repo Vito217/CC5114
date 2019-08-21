@@ -43,7 +43,7 @@ public class Layer {
     }
 
     double[][] layer_gradient(double[][] data, double[][] layer_cache, double[][] desired_output,
-                                     Layer next_layer, double[][] last_layer_gradient){
+                              Layer next_layer, double[][] last_layer_gradient){
 
         // Gradient List for a single layer:
         //
@@ -71,7 +71,7 @@ public class Layer {
                 for(int j=0; j<data.length;j++){
 
                     // We get the delta
-                    layer_gradient[i][j] = neurons[i].loss_function(layer_cache[i][j], desired_output[j][i]);
+                    layer_gradient[i][j] = neurons[i].derivative_loss_function(layer_cache[i][j], desired_output[j][i]);
                 }
             }
         }
