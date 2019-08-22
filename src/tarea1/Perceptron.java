@@ -70,6 +70,26 @@ public class Perceptron {
 
     }
 
+    public double loss_function(double[] ro, double[] dou){
+        assert loss_function.equals("mse") ||
+                loss_function.equals("cross");
+        switch(this.loss_function){
+            case "mse":
+                double mse = 0;
+                for(int i=0; i<ro.length; i++){
+                    mse += Math.pow(ro[i]-dou[i],2);
+                }
+                return mse/ro.length;
+            case "cross":
+                double cross = 0;
+                for(int i=0; i<ro.length; i++){
+                    cross += dou[i]*Math.log(ro[i])/Math.log(2);
+                }
+                return -cross;
+        }
+        return 0;
+    }
+
     public double derivative_loss_function(double ro, double dou){
         assert loss_function.equals("mse") ||
                 loss_function.equals("cross");
@@ -101,7 +121,7 @@ public class Perceptron {
         }
     }
 
-    public DataTuple evaluate(double[][] eval_data, double[] eval_target){
+    public Tuple evaluate(double[][] eval_data, double[] eval_target){
 
         // Initialize counters
         double correct_answers = 0;
@@ -131,7 +151,7 @@ public class Perceptron {
         }
         double acc = correct_answers / total_answers;
         System.out.println("Accuracy = "+Double.toString(acc));
-        return new DataTuple(eval_data, output);
+        return new Tuple(eval_data, output);
     }
 
     public void update_weights(double[] gradient){

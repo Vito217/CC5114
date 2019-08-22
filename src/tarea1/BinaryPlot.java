@@ -1,25 +1,20 @@
 package tarea1;
 
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.DomainOrder;
-import org.jfree.data.general.DatasetChangeListener;
-import org.jfree.data.general.DatasetGroup;
-import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeriesCollection;
 import java.awt.Color;
 import javax.swing.*;
 
-public class MyPlot extends JFrame {
+public class BinaryPlot extends JFrame {
 
-    public MyPlot(String title, DataTuple dt, double m, double b){
+    public BinaryPlot(String title, Tuple dt, double m, double b){
         super(title);
 
         // Main plot
@@ -34,8 +29,8 @@ public class MyPlot extends JFrame {
         XYSeries series1 = new XYSeries("1");
         XYSeries series2 = new XYSeries("2");
 
-        double[][] dataset = dt.getInputs();
-        double[][] output = dt.getOutput();
+        double[][] dataset = (double[][]) dt.getFirst();
+        double[][] output = (double[][]) dt.getSecond();
 
         for(int i=0; i<dataset.length; i++){
             if(Math.round(output[i][0]) == 0){
@@ -89,5 +84,10 @@ public class MyPlot extends JFrame {
         // Create Panel
         ChartPanel panel = new ChartPanel(chart);
         setContentPane(panel);
+    }
+
+    public void show_plot(){
+        pack( );
+        setVisible( true );
     }
 }

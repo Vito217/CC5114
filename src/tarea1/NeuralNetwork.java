@@ -165,22 +165,31 @@ public class NeuralNetwork {
         }
     }
 
-    public void train(double[][] data, double[][] desired_output, int iterations){
+    public Tuple train(double[][] data, double[][] desired_output, int iterations){
         // For each iteration
+        double[] loss = new double[iterations];
+        double[] success = new double[iterations];
         for(int it=0; it<iterations; it++){
-
             System.out.println("Step = "+Integer.toString(it+1));
-
             // Forward propagation
             ArrayList<double[][]> cache_list = forward_prop(data);
             // Backward propagation
             ArrayList<double[][]> gradient_list = backward_prop(data, desired_output, cache_list);
             // Update weights
             update_weights(gradient_list);
+            // Get loss
+            double it_loss = loss(cache_list.get(cache_list.size()-1),desired_output);
+            System.out.println("Loss = "+Double.toString(it_loss));
+            loss[it] = it_loss;
+            // Get right answers
+            double right = successes(cache_list.get(cache_list.size()-1),desired_output);
+            System.out.println("Successes = "+Double.toString(right));
+            success[it] = right;
         }
+        return new Tuple(loss, success);
     }
 
-    public DataTuple eval(double[][] eval_data, double[][] eval_target){
+    public Tuple eval(double[][] eval_data, double[][] eval_target){
 
         // Initialize counters
         double correct_answers = 0;
@@ -212,7 +221,42 @@ public class NeuralNetwork {
         double acc = correct_answers / total_answers;
         System.out.println("Accuracy = "+Double.toString(acc));
 
-        return new DataTuple(eval_data, outputs);
+        return new Tuple(eval_data, outputs);
     }
 
+    public double loss(double[][] real_out, double[][] desired_out){
+        double loss = 0;
+        // Transposing target
+        double[][] aux = new double[desired_out[0].length][desired_out.length];
+        for(int j=0; j<desired_out[0].length; j++){
+            for(int k=0; k<desired_out.length; k++){
+                aux[j][k] = desired_out[k][j];
+            }
+        }
+        //Getting loss per neuron
+        Layer last_layer = layers[layers.length-1];
+        for(int i=0; i<real_out.length; i++){
+            loss += last_layer.neurons[i].loss_function(real_out[i], aux[i])/real_out.length;
+        }
+        return loss;
+    }
+
+    public double successes(double[][] real_out, double[][] desired_out){
+        double successes = 0;
+        // Transposing target
+        double[][] aux = new double[desired_out[0].length][desired_out.length];
+        for(int j=0; j<desired_out[0].length; j++){
+            for(int k=0; k<desired_out.length; k++){
+                aux[j][k] = desired_out[k][j];
+            }
+        }
+        for(int i=0; i<real_out.length; i++){
+            for(int j=0; j<real_out[i].length; j++){
+                if(Math.round(real_out[i][j]) == Math.round(aux[i][j])){
+                    successes++;
+                }
+            }
+        }
+        return successes;
+    }
 }
