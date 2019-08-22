@@ -1,6 +1,14 @@
 # CC5114
 <h1>Tareas del curso</h1>
 
+<h2>Consideraciones</h2>
+
+Las tareas del curso fueron realizadas en Java en el entorno IntelliJ. El código también contiene asserts que no funcionarán hasta usar el comando:
+
+```
+java ~ea
+```
+
 <h2>Tarea 1</h2>
 
 La Tarea 1 contiene lo necesario para crear una red neuronal en Java. Para crear una red neuronal, se debe crear una NeuralNetwork, y asignarle un array Layer[ ] con las capas a usar. Cada capa se inicializa como un Layer cuyo numero de inputs por perceptrón es igual al número de dimensiones de cada dato de entrada, y el número de outputs corresponde a la cantidad de neuronas a usar. Además, se le puede asignar un learning rate, función de activación, y función de costo.
