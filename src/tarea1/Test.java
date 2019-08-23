@@ -12,7 +12,7 @@ public class Test {
                         "C:/Users/VictorStefano/IdeaProjects/CC5114/src/tarea1/iris.data",
                         ",");
 
-        double[][] data = (double[][]) data_tuple.getFirst();
+        double[][] data = DataUtils.normalize_data((double[][]) data_tuple.getFirst(),1.0,0.0);
         double[][] target = (double[][]) data_tuple.getSecond();
 
         // Splitting training data

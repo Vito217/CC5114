@@ -81,9 +81,15 @@ public class Perceptron {
                 }
                 return mse/ro.length;
             case "cross":
+                // Get Softmax
+                double sum_soft = 0;
+                for(double out: ro){
+                    sum_soft += Math.exp(out);
+                }
+                // Get loss
                 double cross = 0;
                 for(int i=0; i<ro.length; i++){
-                    cross += dou[i]*Math.log(ro[i])/Math.log(2);
+                    cross += dou[i]*Math.log(Math.exp(ro[i])/sum_soft)/Math.log(2);
                 }
                 return -cross;
         }
