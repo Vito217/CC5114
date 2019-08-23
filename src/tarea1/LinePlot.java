@@ -3,28 +3,24 @@ package tarea1;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame;
-
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
 
 public class LinePlot extends JFrame {
 
     public LinePlot(String title, double[] loss){
         super(title);
 
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset( );
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        XYSeries series = new XYSeries("Y");
         for(int i=0; i<loss.length; i++){
-            dataset.addValue( loss[i] , "y" , Integer.toString(i) );
+            series.add(i, loss[i]);
         }
+        dataset.addSeries(series);
 
-        JFreeChart chart = ChartFactory.createLineChart(
+        JFreeChart chart = ChartFactory.createXYLineChart(
                 title,
                 "X",
                 "Y",
@@ -36,25 +32,16 @@ public class LinePlot extends JFrame {
 
         );
 
-        double max = Double.MIN_VALUE;
-        double min = Double.MAX_VALUE;
-        for(double l: loss){
-            max = l>max ? l : max;
-            min = l<max ? l : min;
-        }
-        CategoryPlot plot = chart.getCategoryPlot();
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setRange(min, max);
-
         // Create Panel
         ChartPanel panel = new ChartPanel(chart);
-        panel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
         setContentPane(panel);
 
     }
 
     public void show_plot(){
-        pack( );
-        setVisible( true );
+        setSize(800, 400);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 }
