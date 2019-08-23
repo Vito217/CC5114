@@ -64,7 +64,7 @@ Se debe tener en cuenta que el programa asume que:
 
 También es posible separar la data en subconjuntos de entrenamiento y evaluación usando la función <b>separate_train_and_eval_data(data, target, percentage)</b> de DataUtils.java, donde percentage es el porcentaje entre 0.00 y 1.00 de datos que se irá al subconjunto de training, mientras que el resto se irá al subconjunto de entrenamiento.
 
-Todo los elementos señalados, así como el detalle de la implementación, se encuentran en la clase Test.java. El ejemplo empleado tomó como datos el archivo iris.data, con un total de 150 datos, usando un 80 por ciento para entrenamiento. Se utilizó una red neuronal de dos capas con función de activación sigmoide y mean square error, con un learning rate de 0.1. En total se hicieron 50000 iteraciones, cada iteración correspondiente a un epoch (pasa toda la data). 
+Todo los elementos señalados, así como el detalle de la implementación, se encuentran en la clase Test.java. El ejemplo empleado tomó como datos el archivo iris.data, con un total de 150 datos, usando un 80 por ciento para entrenamiento. Se utilizó una red neuronal de dos capas con función de activación sigmoide y mean square error, con un learning rate de 0.1. En total se hicieron 100000 iteraciones, cada iteración correspondiente a un epoch (pasa toda la data). 
 
 ```
 NeuralNetwork n = new NeuralNetwork(
@@ -96,9 +96,9 @@ Como se aprecia en los siguientes gráficos, el número de aciertos crece rápid
 La matriz de confusión obtenida fue:
 
 ```
-[   ,96      ,04      ,00    ]
-[   ,03      ,96      ,02    ]
-[   ,01      ,05      ,95    ]
+[   ,97      ,03      ,00    ]
+[   ,03      ,95      ,02    ]
+[   ,00      ,07      ,93    ]
 ```
 
 Como puede observarse, la red da buenos resultados, teniendo más de un 90 porciento final de precisión, con un error y número de predicciones correctas que convergen rápidamente.
