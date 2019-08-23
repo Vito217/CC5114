@@ -55,7 +55,7 @@ public class Test {
         double[][] conf_matrix = DataUtils.confusion_matrix(eval_output);
 
         // Print Confusion matrix
-        DecimalFormat numberFormat = new DecimalFormat("#.00");
+        DecimalFormat numberFormat = new DecimalFormat("#0.00");
         for(int i=0; i<conf_matrix.length; i++){
             System.out.print("[");
             for(int j=0; j<conf_matrix[i].length; j++){
