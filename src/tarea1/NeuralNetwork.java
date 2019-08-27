@@ -225,7 +225,6 @@ public class NeuralNetwork {
     }
 
     public double loss(double[][] real_out, double[][] desired_out){
-        double loss = 0;
         // Transposing target
         double[][] aux = new double[desired_out[0].length][desired_out.length];
         for(int j=0; j<desired_out[0].length; j++){
@@ -233,12 +232,9 @@ public class NeuralNetwork {
                 aux[j][k] = desired_out[k][j];
             }
         }
-        //Getting loss per neuron
+        //Getting layer_loss
         Layer last_layer = layers[layers.length-1];
-        for(int i=0; i<real_out.length; i++){
-            loss += last_layer.neurons[i].loss_function(real_out[i], aux[i])/real_out.length;
-        }
-        return loss;
+        return last_layer.loss_function(real_out, aux);
     }
 
     public double successes(double[][] real_out, double[][] desired_out){

@@ -3,12 +3,16 @@ package tarea1;
 public class Layer {
 
     Perceptron[] neurons;
+    private String activation_function;
+    private String loss_function;
 
     public Layer(int input_size, int n_neurons, double learning_rate, String act_fun, String loss_fun){
         neurons = new Perceptron[n_neurons];
         for(int i=0; i<n_neurons; i++){
             neurons[i] = new Perceptron(input_size, learning_rate, act_fun, loss_fun);
         }
+        activation_function = act_fun;
+        loss_function = loss_fun;
     }
 
     double[][] layer_cache(double[][] data){
@@ -113,6 +117,20 @@ public class Layer {
         for(int i=0; i<gradient.length; i++){
             neurons[i].update_weights(gradient[i]);
         }
+    }
+
+    double loss_function(double[][] ro, double[][] dou){
+        double loss = 0;
+        for(int i=0; i<ro.length; i++){
+            double neuron_mean_loss = neurons[i].loss_function(ro[i], dou[i]);
+            switch (loss_function){
+                case "mse":
+                    loss += neuron_mean_loss/ro.length;
+                case "cross":
+                    loss += neuron_mean_loss;
+            }
+        }
+        return loss;
     }
 
     double[] evaluate(double[] data){

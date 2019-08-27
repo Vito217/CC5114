@@ -73,7 +73,7 @@ public class Perceptron {
     public double loss_function(double[] ro, double[] dou){
         assert loss_function.equals("mse") ||
                 loss_function.equals("cross");
-        switch(this.loss_function){
+        switch(loss_function){
             case "mse":
                 double mse = 0;
                 for(int i=0; i<ro.length; i++){
@@ -85,7 +85,7 @@ public class Perceptron {
                 for(int i=0; i<ro.length; i++){
                     cross -= dou[i]*Math.log(ro[i])/Math.log(2);
                 }
-                return cross;
+                return cross/ro.length;
         }
         return 0;
     }
