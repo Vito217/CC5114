@@ -3,11 +3,13 @@
 
 <h2>Consideraciones</h2>
 
-Las tareas del curso fueron realizadas en Java en el entorno IntelliJ. El código también contiene asserts que no funcionarán hasta usar el comando:
+1) Las tareas del curso fueron realizadas en Java en el entorno IntelliJ. El código también contiene asserts que no funcionarán hasta usar el comando:
 
 ```
 java ~ea
 ```
+
+2) Si al ejecutar Test.java, ve que sólo aparece un gráfico en vez de dos, es probable que uno esté debajo del otro, por lo que sólo debe arrastrar la ventana del gráfico.
 
 <h2>Tarea 1</h2>
 
