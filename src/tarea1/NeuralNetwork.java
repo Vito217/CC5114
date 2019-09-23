@@ -1,13 +1,20 @@
 package tarea1;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable{
 
+    private static final long serialVersionUID = 1L;
     private Layer[] layers;
+    private DecimalFormat df;
 
     public NeuralNetwork(Layer[] layers){
         this.layers = layers;
+        df = new DecimalFormat("#0.00");
     }
 
     private ArrayList<double[][]> forward_prop(double[][] data){
@@ -177,14 +184,10 @@ public class NeuralNetwork {
             ArrayList<double[][]> gradient_list = backward_prop(data, desired_output, cache_list);
             // Update weights
             update_weights(gradient_list);
-            // Get loss
-            double it_loss = loss(cache_list.get(cache_list.size()-1),desired_output);
-            System.out.println("Loss = "+Double.toString(it_loss));
-            loss[it] = it_loss;
-            // Get right answers
-            double right = successes(cache_list.get(cache_list.size()-1),desired_output);
-            System.out.println("Successes = "+Double.toString(right));
-            success[it] = right;
+            // Get loss, and right answers
+            Tuple out_ans_loss = eval(data, desired_output);
+            success[it] = (double) out_ans_loss.getSecond();
+            loss[it] = (double) out_ans_loss.getThird();
         }
         return new Tuple(loss, success);
     }
@@ -206,53 +209,38 @@ public class NeuralNetwork {
             for(Layer layer: layers){
                 output = layer.evaluate(output);
             }
+            outputs[i] = output;
 
             // Threshold is 0.5 by default
             for(int j=0; j<output.length; j++){
                 if(Math.round(output[j]) == Math.round(eval_target[i][j])){
                     correct_answers += 1.0/output.length;
                 }
-                outputs[i][j] = output[j];
             }
-
             total_answers++;
         }
 
         double acc = correct_answers / total_answers;
-        System.out.println("Accuracy = "+Double.toString(acc));
+        double loss = layers[layers.length-1].loss_function(DataUtils.transpose(outputs),
+                DataUtils.transpose(eval_target));
+        System.out.println("Correct Answers = "+Long.toString(Math.round(correct_answers)));
+        System.out.println("Loss = "+df.format(loss));
+        System.out.println("Accuracy = "+df.format(acc));
 
-        return new Tuple(eval_data, outputs);
+        return new Tuple(outputs, correct_answers, loss);
     }
 
-    public double loss(double[][] real_out, double[][] desired_out){
-        // Transposing target
-        double[][] aux = new double[desired_out[0].length][desired_out.length];
-        for(int j=0; j<desired_out[0].length; j++){
-            for(int k=0; k<desired_out.length; k++){
-                aux[j][k] = desired_out[k][j];
-            }
-        }
-        //Getting layer_loss
-        Layer last_layer = layers[layers.length-1];
-        return last_layer.loss_function(real_out, aux);
-    }
+    public void save(String path){
+        try {
 
-    public double successes(double[][] real_out, double[][] desired_out){
-        double successes = 0;
-        // Transposing target
-        double[][] aux = new double[desired_out[0].length][desired_out.length];
-        for(int j=0; j<desired_out[0].length; j++){
-            for(int k=0; k<desired_out.length; k++){
-                aux[j][k] = desired_out[k][j];
-            }
+            FileOutputStream fileOut = new FileOutputStream(path);
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(this);
+            objectOut.close();
+            System.out.println("The Network was succesfully saved");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        for(int i=0; i<real_out.length; i++){
-            for(int j=0; j<real_out[i].length; j++){
-                if(Math.round(real_out[i][j]) == Math.round(aux[i][j])){
-                    successes++;
-                }
-            }
-        }
-        return successes;
     }
 }

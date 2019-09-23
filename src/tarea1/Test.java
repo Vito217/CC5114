@@ -44,12 +44,12 @@ public class Test {
 
         // Train and Eval
         Tuple loss_success = n.train(train_data, train_target, 100000);
-        Tuple dt           = n.eval(eval_data, eval_target);
+        Tuple out_ans_loss = n.eval(eval_data, eval_target);
 
         // Results
         double[]   loss        = (double[])   loss_success.getFirst();
         double[]   success     = (double[])   loss_success.getSecond();
-        double[][] eval_output = (double[][]) dt.getSecond();
+        double[][] eval_output = (double[][]) out_ans_loss.getFirst();
 
         // Confusion matrix
         double[][] conf_matrix = DataUtils.confusion_matrix(eval_output);

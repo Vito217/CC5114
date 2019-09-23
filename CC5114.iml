@@ -7,5 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.jfree:jfreechart:1.0.19" level="project" />
+    <orderEntry type="library" name="org.ejml:ejml-all:0.38" level="project" />
+    <orderEntry type="library" name="javadoc-api" level="project" />
+    <orderEntry type="library" name="external-libs" level="project" />
   </component>
 </module>

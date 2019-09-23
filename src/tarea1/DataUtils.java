@@ -1,9 +1,11 @@
 package tarea1;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.text.DecimalFormat;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -80,17 +82,25 @@ public class DataUtils {
     }
 
     public static double[][] normalize_data(double[][] data, double nh, double nl){
-        double dl = Double.MAX_VALUE;
-        double dh = Double.MIN_VALUE;
+
+        // d_low and d_high per column
+        double d_low[] = new double[data[0].length];
+        double d_high[] = new double[data[0].length]; ;
+        Arrays.fill(d_low, Double.MAX_VALUE);
+        Arrays.fill(d_high, Double.MIN_VALUE);
+
+        // Getting max and min per column
         for(int i=0; i<data.length; i++){
             for(int j=0; j<data[i].length; j++){
-                if(data[i][j]<dl){dl=data[i][j];}
-                if(data[i][j]>dh){dh=data[i][j];}
+                if(data[i][j] < d_low[j]){ d_low[j] = data[i][j]; }
+                if(data[i][j] > d_high[j]){ d_high[j] = data[i][j]; }
             }
         }
+
+        // Normalizing data per columns
         for(int i=0; i<data.length; i++){
             for(int j=0; j<data[i].length; j++){
-                data[i][j] = (((data[i][j]-dl)*(nh-nl))/(dh-dl)) + nl;
+                data[i][j] = (((data[i][j]-d_low[j])*(nh-nl))/(d_high[j]-d_low[j])) + nl;
             }
         }
         return data;
@@ -165,5 +175,33 @@ public class DataUtils {
         }
 
         return new Tuple[]{new Tuple(train_data, train_target), new Tuple(eval_data, eval_target)};
+    }
+
+    public static double[][] transpose(double[][] matrix){
+        // Transposing
+        double[][] aux = new double[matrix[0].length][matrix.length];
+        for(int j=0; j<matrix[0].length; j++){
+            for(int k=0; k<matrix.length; k++){
+                aux[j][k] = matrix[k][j];
+            }
+        }
+        return aux;
+    }
+
+    public static NeuralNetwork read_net_from_serializable(String path){
+        try {
+
+            FileInputStream fileIn = new FileInputStream(path);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+
+            Object obj = objectIn.readObject();
+
+            objectIn.close();
+            return (NeuralNetwork) obj;
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }
