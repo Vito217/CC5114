@@ -12,14 +12,15 @@ public class GeneticAlgorithm{
     private FitFun fitfun;
     private Population population;
 
-    public GeneticAlgorithm(double mr, double sr, int ps, int ng, Population p, FitFun f){
-        mutation_rate = mr;
-        selection_rate = sr;
-        population_size = ps;
-        number_of_gens = ng;
-        fitfun = f;
-        p.initPopulation(ps, ng);
-        population = p;
+    public GeneticAlgorithm(double mutation_rate, double selection_rate, int population_size,
+                            int number_of_gens, Population population, FitFun fun){
+        this.mutation_rate = mutation_rate;
+        this.selection_rate = selection_rate;
+        this.population_size = population_size;
+        this.number_of_gens = number_of_gens;
+        this.fitfun = fun;
+        population.initPopulation(population_size, number_of_gens);
+        this.population = population;
     }
 
     // SELECTION

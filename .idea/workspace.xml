@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="29922a1b-73fb-4818-af55-ac950040484c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Beans.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tarea2/FitFun.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tarea2/GeneticAlgorithm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tarea2/Population.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tarea2/PopulationFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tarea2/StringPopulation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tarea2/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CC5114.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CC5114.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tarea1/DataUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea1/DataUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tarea1/NeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea1/NeuralNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tarea1/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea1/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tarea1/Tuple.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea1/Tuple.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tarea2/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/GeneticAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tarea2/StringPopulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/StringPopulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tarea2/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/Test.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

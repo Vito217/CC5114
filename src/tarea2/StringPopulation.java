@@ -6,7 +6,7 @@ import java.util.*;
 public class StringPopulation implements Population{
 
     private String[][] population;
-    private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyz";
+    private static final String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyz ";
 
     public StringPopulation(){}
 
@@ -14,9 +14,10 @@ public class StringPopulation implements Population{
     public void initPopulation(int ps, int ng){
         population = new String[ps][ng];
         StringBuilder builder = new StringBuilder();
+        Random rnd = new Random();
         for(int i=0; i<ps; i++){
             for(int j=0; j<ng; j++){
-                int character = (int)(Math.random()*ALPHA_NUMERIC_STRING.length());
+                int character = (int)(rnd.nextFloat()*ALPHA_NUMERIC_STRING.length());
                 builder.append(ALPHA_NUMERIC_STRING.charAt(character));
                 population[i][j] = builder.toString();
                 builder.deleteCharAt(0);
@@ -49,20 +50,36 @@ public class StringPopulation implements Population{
     @Override
     public String[][] crossover(double mutation_rate, Object[][] selected) {
         String[][] sel = (String[][]) selected;
-        int first_num_gens = (int) Math.round(sel[0].length * mutation_rate);
+        Random rand = new Random();
+        //int first_num_gens = (int) Math.round(sel[0].length * mutation_rate);
         for(int i=0; i<sel.length; i += 2){
             int pop_index = i/2;
             String[] father = sel[i];
             String[] mother = sel[i+1];
             String[] son = new String[sel[i].length];
-            for(int j=0; j<sel[i].length; j++){
-                if(j<=first_num_gens){
-                    son[j] = mother[j];
-                }
-                else{
-                    son[j] = father[j];
+            int random = Math.round(rand.nextFloat());
+            int first_num_gens = rand.nextInt(sel[i].length);
+            if(random == 0){
+                for(int j=0; j<sel[i].length; j++){
+                    if(j<=first_num_gens){
+                        son[j] = mother[j];
+                    }
+                    else{
+                        son[j] = father[j];
+                    }
                 }
             }
+            else{
+                for(int j=0; j<sel[i].length; j++){
+                    if(j<=first_num_gens){
+                        son[j] = father[j];
+                    }
+                    else{
+                        son[j] = mother[j];
+                    }
+                }
+            }
+
             population[pop_index] = son;
         }
         return population;

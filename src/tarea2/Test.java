@@ -16,12 +16,12 @@ public class Test {
 
         GeneticAlgorithm ga = new GeneticAlgorithm(0.5,
                                                    0.5,
-                                                   100,
+                                                   1000,
                                                    3,
                                                    fac.createStringPopulation(),
                 individual -> {
                     String[] ind = (String[]) individual;
-                    String[] answer = new String[]{"c", "a", "t"};
+                    String[] answer = new String[]{"c","a","t"};
                     int score = 0;
                     for(int i=0; i<answer.length; i++){
                         if(ind[i].equals(answer[i])){
@@ -31,6 +31,6 @@ public class Test {
                     return score;
                 });
 
-        ga.solve(100);
+        ga.solve(3);
     }
 }
