@@ -1,12 +1,14 @@
 package tarea2;
 
+import tarea1.Tuple;
+
 public interface Population {
 
     void initPopulation(int ps, int ng);
 
-    Object[][] tournament(double selection_rate, FitFun fit);
+    Tuple tournament(double selection_rate, FitFun fit);
 
-    Object[][] crossover(double mutation_rate, Object[][] selected);
+    Object[][] crossover(double mutation_rate, Tuple selected, boolean elitist);
 
     Object[][] getPopulation();
 

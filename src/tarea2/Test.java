@@ -1,12 +1,7 @@
 package tarea2;
-import javafx.util.Pair;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.*;
-
-import static java.util.Collections.reverseOrder;
-import static java.util.Comparator.comparing;
 
 public class Test {
 
@@ -18,6 +13,7 @@ public class Test {
                                                    0.5,
                                                    1000,
                                                    3,
+                                                   false,
                                                    fac.createStringPopulation(),
                 individual -> {
                     String[] ind = (String[]) individual;

@@ -1,5 +1,6 @@
 package tarea2;
 
+import tarea1.Tuple;
 import javafx.util.Pair;
 import java.util.*;
 
@@ -26,9 +27,11 @@ public class StringPopulation implements Population{
     }
 
     @Override
-    public String[][] tournament(double selection_rate, FitFun fit) {
+    public Tuple tournament(double selection_rate, FitFun fit) {
         Random rnd = new Random();
         String[][] selected_population = new String[2 * population.length][population[0].length];
+        String[] best_individual = new String[population[0].length];
+        Integer best_fit = Integer.MIN_VALUE;
         int n_select = (int) Math.round(population.length * selection_rate);
 
         // Retrieving 2N selected individuals
@@ -41,17 +44,22 @@ public class StringPopulation implements Population{
             }
             // We sort and get the best
             list.sort(Comparator.comparing(Pair::getValue));
-            selected_population[i] = list.get(list.size()-1).getKey();
+            Pair<String[], Integer> best_rival = list.get(list.size()-1);
+            selected_population[i] = best_rival.getKey();
+            if(best_rival.getValue() > best_fit){
+                best_fit = best_rival.getValue();
+                best_individual = best_rival.getKey();
+            }
         }
 
-        return selected_population;
+        return new Tuple(selected_population, best_individual);
     }
 
     @Override
-    public String[][] crossover(double mutation_rate, Object[][] selected) {
-        String[][] sel = (String[][]) selected;
+    public String[][] crossover(double mutation_rate, Tuple selected, boolean elitist) {
+        String[][] sel = (String[][]) selected.getFirst();
+        String[] best = (String[]) selected.getSecond();
         Random rand = new Random();
-        //int first_num_gens = (int) Math.round(sel[0].length * mutation_rate);
         for(int i=0; i<sel.length; i += 2){
             int pop_index = i/2;
             String[] father = sel[i];
@@ -82,6 +90,11 @@ public class StringPopulation implements Population{
 
             population[pop_index] = son;
         }
+
+        if(elitist){
+            population[0] = best;
+        }
+
         return population;
     }
 
