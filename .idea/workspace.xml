@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="29922a1b-73fb-4818-af55-ac950040484c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tarea2/FitFun.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/FitFun.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tarea2/GeneticAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/GeneticAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tarea2/Population.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/Population.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tarea2/StringPopulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/StringPopulation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tarea2/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tarea2/Test.java" afterDir="false" />
     </list>
