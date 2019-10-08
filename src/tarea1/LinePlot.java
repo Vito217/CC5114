@@ -10,15 +10,17 @@ import javax.swing.*;
 
 public class LinePlot extends JFrame {
 
-    public LinePlot(String title, double[] loss){
+    public LinePlot(String title, double[][] loss){
         super(title);
 
         XYSeriesCollection dataset = new XYSeriesCollection();
-        XYSeries series = new XYSeries("Y");
-        for(int i=0; i<loss.length; i++){
-            series.add(i, loss[i]);
+        for (int i=0; i<loss.length; i++){
+        XYSeries series = new XYSeries("Row "+ i);
+            for (int j=0; j<loss[i].length; j++) {
+                series.add(j, loss[i][j]);
+            }
+            dataset.addSeries(series);
         }
-        dataset.addSeries(series);
 
         JFreeChart chart = ChartFactory.createXYLineChart(
                 title,

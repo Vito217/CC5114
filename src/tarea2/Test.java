@@ -3,6 +3,7 @@ package tarea2;
 import javafx.util.Pair;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import tarea1.LinePlot;
 
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class Test {
                 0.5,
                 1000,
                 3,
-                true,
-                true,
+                false,
+                false,
                 fac.createStringPopulation(),
                 new ArrayList<Pair<FitFun, Double>>(){
                     {
@@ -40,6 +41,8 @@ public class Test {
                     }
                 }
         );
-        ga.solve(3);
+        double[][] fitnessess = ga.solve(3);
+        LinePlot chart1 = new LinePlot("Fitness v/s Generations", fitnessess);
+        chart1.show_plot();
     }
 }

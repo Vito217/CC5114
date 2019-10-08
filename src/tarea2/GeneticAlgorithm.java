@@ -2,8 +2,11 @@ package tarea2;
 
 import javafx.util.Pair;
 import tarea1.Tuple;
+import tarea1.DataUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class GeneticAlgorithm{
 
@@ -41,11 +44,15 @@ public class GeneticAlgorithm{
         return population.crossover(mutation_rate, selected, elitist);
     }
 
-    public void solve(int iterations){
+    public double[][] solve(int iterations){
+        Double[][] fit_per_gen = new Double[iterations][fitfun.size()];
         for(int i=0; i<iterations; i++){
             population.printPopulation();
             Tuple selected = tournament();
+            fit_per_gen[i] = (Double[]) selected.getThird();
             Object[][] winners = crossover(selected);
         }
+
+        return DataUtils.transpose(DataUtils.unbox(fit_per_gen));
     }
 }

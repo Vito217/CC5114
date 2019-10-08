@@ -65,8 +65,8 @@ public class Test {
         }
 
         // Plotting
-        LinePlot chart1 = new LinePlot("Loss v/s Iterations", loss);
-        LinePlot chart2 = new LinePlot("Right Answers v/s Iterations", success);
+        LinePlot chart1 = new LinePlot("Loss v/s Iterations", new double[][]{loss});
+        LinePlot chart2 = new LinePlot("Right Answers v/s Iterations", new double[][]{success});
         chart1.show_plot();
         chart2.show_plot();
     }

@@ -188,6 +188,16 @@ public class DataUtils {
         return aux;
     }
 
+    public static double[][] unbox(Double[][] matrix){
+        double[][] aux = new double[matrix.length][matrix[0].length];
+        for(int j=0; j<matrix.length; j++){
+            for(int k=0; k<matrix[0].length; k++){
+                aux[j][k] = matrix[j][k];
+            }
+        }
+        return aux;
+    }
+
     public static NeuralNetwork read_net_from_serializable(String path){
         try {
 
