@@ -114,7 +114,7 @@ La principal dificultad al momento de implementar esta red no fue precisamente e
 Para la tarea 2 se utilizaron las siguientes librerías externas:
 
 <ul>
-  <li>JFreeChart</li>
+  <li>JFreeChart (El plot que lo extiende es importado desde Tarea 1)</li>
   <li>JHeatChart</li>
   <li>Spring Framework Context</li>
 </ul>
