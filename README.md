@@ -287,14 +287,18 @@ GeneticAlgorithm ga = new GeneticAlgorithm(
     );
 ```
 
-Usando Crossover:
+Usando Crossover, se tiene que el mejor fit se alcanza en la segunda generación, mientras que el mejor promedio se alcanza en la tercera generación:
 
 ![alt text](https://github.com/Vito217/CC5114/blob/master/src/tarea2/ej3_cross.png)
 
-Usando Mutación:
+Usando Mutación, podemos ver que el mejor fitness promedio se alcanza en la novena generación:
 
 ![alt text](https://github.com/Vito217/CC5114/blob/master/src/tarea2/ej3_mut.png)
 
-Heatmap:
+El Heatmap muestra que las mejores configuraciones de cantidad de individuos por población y tasa de mutación son (750, 0.5) y (100, 1.0):
 
 ![alt text](https://github.com/Vito217/CC5114/blob/master/src/tarea2/ej3_heat.png)
+
+Para concluir, podemos ver que en general el crossover funciona mucho mejor que la mutación, aunque el primero sea un tanto más costoso, pues debe iterar sobre todos los genes de un individuo, mientras que la mutación sólo altera un número finito de genes. Su efectividad podría explicarse debido a que mezcla a dos padres que de por sí ya tienen buen fitness, mientras que en la mutación, mientras más grande sea el vocabulario, hay más posibilidades de que un gen bueno sea intercambiado por uno malo.
+
+Es por esta razón que en la práctica la reproducción mediante crossover es más útil. Cabe señalar además las dificultades de eficiencia de esta implementación, pues está sujeta a las limitaciones de Java, por lo que lo recomendable es buscar soluciones alternativas.
