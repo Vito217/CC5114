@@ -3,16 +3,26 @@ package tarea2;
 import javafx.util.Pair;
 import tarea1.Tuple;
 import java.util.ArrayList;
+import java.util.Random;
 
-public interface Population {
+public abstract class Population {
 
-    void initPopulation(int ps, int ng);
+    protected Random rand = new Random();
 
-    Tuple tournament(double selection_rate, ArrayList<Pair<FitFun, Double>> fitfun, boolean pareto);
+    public Population(){
 
-    Object[][] crossover(double mutation_rate, Tuple selected, boolean elitist);
+    }
 
-    Object[][] getPopulation();
+    abstract void initPopulation(int ps, int ng);
 
-    void printPopulation();
+    abstract Tuple tournament(ArrayList<Pair<FitFun, Double>> fitfun, boolean pareto);
+
+    abstract Object[][] crossover(double mutation_rate, Tuple selected, boolean elitist);
+
+    abstract Object[][] mutation(double mutation_rate, Tuple selected, boolean elitist);
+
+    abstract Object[][] getPopulation();
+
+    abstract void printPopulation();
+
 }

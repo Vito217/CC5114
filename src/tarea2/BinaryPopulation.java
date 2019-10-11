@@ -1,26 +1,24 @@
 package tarea2;
 
-import tarea1.Tuple;
 import javafx.util.Pair;
-import java.util.*;
+import tarea1.Tuple;
 
-public class StringPopulation extends Population{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
-    private String[][] population;
-    private String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyz";
+public class BinaryPopulation extends Population{
 
-    public StringPopulation(){}
+    private Integer[][] population;
+
+    public BinaryPopulation(){}
 
     @Override
-    public void initPopulation(int ps, int ng){
-        population = new String[ps][ng];
-        StringBuilder builder = new StringBuilder();
+    public void initPopulation(int ps, int ng) {
+        population = new Integer[ps][ng];
         for(int i=0; i<ps; i++){
             for(int j=0; j<ng; j++){
-                int character = (int)(rand.nextFloat()*ALPHA_NUMERIC_STRING.length());
-                builder.append(ALPHA_NUMERIC_STRING.charAt(character));
-                population[i][j] = builder.toString();
-                builder.deleteCharAt(0);
+                population[i][j] = (Integer) Math.round(rand.nextFloat());
             }
         }
     }
@@ -36,18 +34,18 @@ public class StringPopulation extends Population{
     }
 
     @Override
-    public String[][] crossover(double mutation_rate, Tuple selected, boolean elitist) {
-        String[][] sel = (String[][]) selected.getFirst();
-        String[] best = (String[]) selected.getSecond();
+    public Integer[][] crossover(double mutation_rate, Tuple selected, boolean elitist) {
+        Integer[][] sel = (Integer[][]) selected.getFirst();
+        Integer[] best = (Integer[]) selected.getSecond();
         for(int i=0; i<sel.length; i += 2){
             int pop_index = i/2;
-            String[] father = sel[i];
-            String[] mother = sel[i+1];
-            String[] son = new String[sel[i].length];
+            Integer[] father = sel[i];
+            Integer[] mother = sel[i+1];
+            Integer[] son = new Integer[sel[i].length];
             int random = Math.round(rand.nextFloat());
             int first_num_gens = rand.nextInt(sel[i].length);
             if(random == 0){
-                String[] aux = father;
+                Integer[] aux = father;
                 father = mother;
                 mother = aux;
             }
@@ -62,9 +60,9 @@ public class StringPopulation extends Population{
     }
 
     @Override
-    public String[][] mutation(double mutation_rate, Tuple selected, boolean elitist) {
-        String[][] sel = (String[][]) selected.getFirst();
-        String[] best = (String[]) selected.getSecond();
+    public Integer[][] mutation(double mutation_rate, Tuple selected, boolean elitist) {
+        Integer[][] sel = (Integer[][]) selected.getFirst();
+        Integer[] best = (Integer[]) selected.getSecond();
         int number_of_mutations = (int) Math.round(sel[0].length* mutation_rate);
 
         // For each selected individual
@@ -72,19 +70,18 @@ public class StringPopulation extends Population{
 
             //  We alter the number of genes acordding to mutation rate
             for(int j=0; j<number_of_mutations; j++){
-                sel[i][rand.nextInt(sel[i].length)] = Character.toString(ALPHA_NUMERIC_STRING.charAt(
-                        rand.nextInt(ALPHA_NUMERIC_STRING.length())));
+                int rand_ind = rand.nextInt(sel[i].length);
+                sel[i][rand_ind] = sel[i][rand_ind] == null ? 0 : 1 - sel[i][rand_ind];
             }
 
             population[i] = sel[i];
         }
-
         if(elitist){ population[0] = best; }
         return population;
     }
 
     @Override
-    public String[][] getPopulation(){
+    public Integer[][] getPopulation() {
         return population;
     }
 
@@ -114,14 +111,14 @@ public class StringPopulation extends Population{
         // We sort fitness functions by priority
         fitfun.sort(Comparator.comparing(Pair::getValue));
 
-        String[][] selected_population = new String[2 * population.length][population[0].length];
-        String[] best_individual = new String[population[0].length];
+        Integer[][] selected_population = new Integer[2 * population.length][population[0].length];
+        Integer[] best_individual = new Integer[population[0].length];
         int n_select = (int) Math.round(population.length * rand.nextFloat());
 
         Double[] actual_best_fitness = new Double[fitfun.size()];
         Arrays.fill(actual_best_fitness, Double.MIN_VALUE);
 
-        String[][] rivals = new String[n_select][population[0].length];
+        Integer[][] rivals = new Integer[n_select][population[0].length];
         Double[][] fitnesses = new Double[n_select][fitfun.size()+1];
 
         double global_best_fitness = Double.MAX_VALUE;
@@ -185,8 +182,8 @@ public class StringPopulation extends Population{
 
         fitfun.sort(Comparator.comparing(Pair::getValue));
 
-        String[][] selected_population = new String[2 * population.length][population[0].length];
-        String[] best_individual = new String[population[0].length];
+        Integer[][] selected_population = new Integer[2 * population.length][population[0].length];
+        Integer[] best_individual = new Integer[population[0].length];
         int n_select = (int) Math.round(population.length * rand.nextFloat());
 
         double global_best_fitness = Double.MIN_VALUE;
@@ -199,11 +196,12 @@ public class StringPopulation extends Population{
         for (int i = 0; i < 2 * population.length; i++) {
 
             // Getting random rivals
+            Integer[] local_best_rival = new Integer[population[0].length];
             double local_best_fit = Double.MIN_VALUE;
 
             for (int j = 0; j < n_select; j++) {
 
-                String[] rival = population[rand.nextInt(population.length)];
+                Integer[] rival = population[rand.nextInt(population.length)];
 
                 // We compute fitness for each subfitness function
                 for(int k = 0; k < fitfun.size(); k++){

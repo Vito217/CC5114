@@ -1,26 +1,25 @@
 package tarea2;
 
-import tarea1.Tuple;
 import javafx.util.Pair;
-import java.util.*;
+import tarea1.Tuple;
 
-public class StringPopulation extends Population{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class UBKPopulation extends Population{
 
     private String[][] population;
-    private String ALPHA_NUMERIC_STRING = "abcdefghijklmnopqrstuvwxyz";
+    private String[] combinations = new String[]{"12/4", "2/2", "1/2", "1/1", "4/10"};
 
-    public StringPopulation(){}
+    public UBKPopulation(){ }
 
     @Override
-    public void initPopulation(int ps, int ng){
+    void initPopulation(int ps, int ng) {
         population = new String[ps][ng];
-        StringBuilder builder = new StringBuilder();
         for(int i=0; i<ps; i++){
             for(int j=0; j<ng; j++){
-                int character = (int)(rand.nextFloat()*ALPHA_NUMERIC_STRING.length());
-                builder.append(ALPHA_NUMERIC_STRING.charAt(character));
-                population[i][j] = builder.toString();
-                builder.deleteCharAt(0);
+                population[i][j] = combinations[rand.nextInt(combinations.length)];
             }
         }
     }
@@ -72,8 +71,7 @@ public class StringPopulation extends Population{
 
             //  We alter the number of genes acordding to mutation rate
             for(int j=0; j<number_of_mutations; j++){
-                sel[i][rand.nextInt(sel[i].length)] = Character.toString(ALPHA_NUMERIC_STRING.charAt(
-                        rand.nextInt(ALPHA_NUMERIC_STRING.length())));
+                sel[i][rand.nextInt(sel[i].length)] = combinations[rand.nextInt(combinations.length)];
             }
 
             population[i] = sel[i];

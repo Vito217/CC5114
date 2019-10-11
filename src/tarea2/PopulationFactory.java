@@ -6,4 +6,11 @@ public class PopulationFactory {
         return new StringPopulation();
     }
 
+    public Population createBinaryPopulation(){
+        return new BinaryPopulation();
+    }
+
+    public Population createUBKPopulation(){
+        return new UBKPopulation();
+    }
 }
