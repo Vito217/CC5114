@@ -11,6 +11,8 @@ java ~ea
 
 2) Si al ejecutar Test.java, ve que sólo aparece un gráfico en vez de dos, es probable que uno esté debajo del otro, por lo que sólo debe arrastrar la ventana del gráfico.
 
+3) Requiere del uso de las siguientes librerías externas: JFreeChart, JHeatChart, Spring Framework Context.
+
 <h2>Tarea 1</h2>
 
 La Tarea 1 contiene lo necesario para crear una red neuronal en Java. Para crear una red neuronal, se debe crear una NeuralNetwork, y asignarle un array Layer[ ] con las capas a usar. Cada capa se inicializa como un Layer cuyo numero de inputs por perceptrón es igual al número de dimensiones de cada dato de entrada, y el número de outputs corresponde a la cantidad de neuronas a usar. Además, se le puede asignar un learning rate, función de activación, y función de costo.
