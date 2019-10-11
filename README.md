@@ -109,7 +109,7 @@ La principal dificultad al momento de implementar esta red no fue precisamente e
 
 <h2>Tarea 2</h2>
 
-Para la tarea 2 se utilizarn las siguientes librerías externas:
+Para la tarea 2 se utilizaron las siguientes librerías externas:
 
 <ul>
   <li>JFreeChart</li>
@@ -171,7 +171,7 @@ Aquí vemos que el algoritmo es creado con una tasa de mutación de 0.1, tamaño
 
 ![alt text](https://github.com/Vito217/CC5114/blob/master/src/tarea2/ej1_cross.png)
 
-Si ahora usamos mutación, se observa que el fitness oscila aún más, alcanzando su mejor fitness en la tercera generación.
+Si ahora usamos mutación, se observa que el fitness oscila aún más, alcanzando su mejor fitness promedio en la décima generación.
 
 ![alt text](https://github.com/Vito217/CC5114/blob/master/src/tarea2/ej1_mut.png)
 
