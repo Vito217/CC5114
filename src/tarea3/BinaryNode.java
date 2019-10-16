@@ -1,10 +1,14 @@
 package tarea3;
 
-public class BinaryNode extends Node{
+public abstract class BinaryNode extends Node{
 
-    public BinaryNode(Function f, int arg_num, Node left, Node right) {
-        super(f, arg_num);
-        arguments[argumets_pointer++] = left;
-        arguments[argumets_pointer++] = right;
+    public BinaryNode(Function f, Node left, Node right) {
+        super(f);
+        addArgument(left);
+        addArgument(right);
     }
+
+    public abstract Node copy();
+
+    public abstract void print();
 }

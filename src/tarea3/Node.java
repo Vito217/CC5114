@@ -2,28 +2,63 @@ package tarea3;
 
 import java.util.ArrayList;
 
-public class Node {
+public abstract class Node {
 
+    protected Node parent;
     protected Function function;
-    protected int number_of_arguments;
-    protected Node[] arguments;
-    protected int argumets_pointer;
+    protected ArrayList<Node> arguments;
 
-    public Node(Function f, int arg_num){
+    public Node(Function f){
         function = f;
-        number_of_arguments = arg_num;
-        arguments = new Node[number_of_arguments];
-        argumets_pointer = 0;
+        arguments = new ArrayList<>();
+        parent = null;
     }
 
-    public void eval(){
-        for(Node node: arguments){
-            node.eval();
+    public Node(Function f, ArrayList<Node> args){
+        function = f;
+        arguments = args;
+        parent = null;
+    }
+
+    public ArrayList<Node> getArguments(){
+        return arguments;
+    }
+
+    public Function getFunction(){
+        return function;
+    }
+
+    public void addArgument(Node n){
+        if(n != null){
+            n.setParent(this);
         }
+        arguments.add(n);
+    }
+
+    public void setArguments(ArrayList<Node> args){
+        arguments = args;
+    }
+
+    public void setChild(Node n, int index) {
+        arguments.set(index, n);
+    }
+
+    public void setParent(Node p){
+        parent = p;
+    }
+
+    public Object eval(){
+        ArrayList<Object> args = new ArrayList<>();
+        for(Node node: arguments){
+            args.add(node.eval());
+        }
+        Object[] arglist = args.toArray();
+        return function.function(arglist);
     }
 
     public ArrayList<Node> serialize(){
         ArrayList<Node> serial = new ArrayList<>();
+        serial.add(this);
         for(Node node: arguments){
             ArrayList<Node> child_serial = node.serialize();
             serial.addAll(child_serial);
@@ -31,12 +66,17 @@ public class Node {
         return serial;
     }
 
-    public Node copy(){
-        return new Node(function, number_of_arguments);
-    }
-
     public void replace(Node otherNode){
-
+        if(parent != null){
+            ArrayList<Node> parent_arguments = parent.getArguments();
+            int index = parent_arguments.indexOf(this);
+            parent.setChild(otherNode, index);
+            otherNode.setParent(parent);
+        }
     }
+
+    public abstract Node copy();
+
+    public abstract void print();
 
 }
