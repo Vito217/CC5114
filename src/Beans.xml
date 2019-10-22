@@ -8,4 +8,19 @@
     <bean id = "populationFactory" class = "tarea2.PopulationFactory">
     </bean>
 
+    <bean id = "addNodeFactory" class = "tarea3.AddNodeFactory" scope="singleton">
+    </bean>
+
+    <bean id = "subNodeFactory" class = "tarea3.SubNodeFactory" scope="singleton">
+    </bean>
+
+    <bean id = "multNodeFactory" class = "tarea3.MultNodeFactory" scope="singleton">
+    </bean>
+
+    <bean id = "maxNodeFactory" class = "tarea3.MaxNodeFactory" scope="singleton">
+    </bean>
+
+    <bean id = "divNodeFactory" class = "tarea3.DivNodeFactory" scope="singleton">
+    </bean>
+
 </beans>

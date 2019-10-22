@@ -200,6 +200,7 @@ public class StringPopulation extends Population{
 
             // Getting random rivals
             double local_best_fit = Double.MIN_VALUE;
+            String[] local_best_rival = new String[population[0].length];
 
             for (int j = 0; j < n_select; j++) {
 
@@ -219,7 +220,7 @@ public class StringPopulation extends Population{
                 // We check and save the best winner of the tournament
                 if(max_fit > local_best_fit){
                     local_best_fit = max_fit;
-                    selected_population[i] = rival;
+                    local_best_rival = rival;
                 }
                 if(max_fit > global_best_fitness){
                     global_best_fitness = max_fit;
@@ -229,6 +230,7 @@ public class StringPopulation extends Population{
                     global_worst_fitness = min_fit;
                 }
             }
+            selected_population[i] = local_best_rival;
         }
 
         return new Tuple(selected_population, best_individual, new Double[]{global_worst_fitness,

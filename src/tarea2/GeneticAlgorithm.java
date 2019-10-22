@@ -4,14 +4,9 @@ import javafx.util.Pair;
 import org.tc33.jheatchart.HeatChart;
 import tarea1.Tuple;
 import tarea1.DataUtils;
-
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class GeneticAlgorithm{
 

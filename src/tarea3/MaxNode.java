@@ -3,7 +3,15 @@ package tarea3;
 public class MaxNode extends BinaryNode{
 
     public MaxNode(Node left, Node right) {
-        super((args) -> Math.max((int) args[0], (int) args[1]), left, right);
+        super(args -> {
+            try{
+                return Math.max((int) args[0], (int) args[1]);
+            } catch (ClassCastException e) {
+                return "Max("+ args[0] + "," + args[1]+")";
+            }
+        },
+        left,
+        right);
     }
 
     @Override

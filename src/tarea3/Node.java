@@ -1,12 +1,20 @@
 package tarea3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.IntStream;
 
 public abstract class Node {
 
     protected Node parent;
     protected Function function;
     protected ArrayList<Node> arguments;
+
+    public Node(){
+        function = null;
+        arguments = new ArrayList<>();
+        parent = null;
+    }
 
     public Node(Function f){
         function = f;
@@ -26,6 +34,10 @@ public abstract class Node {
 
     public Function getFunction(){
         return function;
+    }
+
+    public Node getParent(){
+        return parent;
     }
 
     public void addArgument(Node n){
@@ -56,6 +68,15 @@ public abstract class Node {
         return function.function(arglist);
     }
 
+    public Object eval(HashMap<Object, Integer> vars){
+        ArrayList<Object> args = new ArrayList<>();
+        for(Node node: arguments){
+            args.add(node.eval(vars));
+        }
+        Object[] arglist = args.toArray();
+        return function.function(arglist);
+    }
+
     public ArrayList<Node> serialize(){
         ArrayList<Node> serial = new ArrayList<>();
         serial.add(this);
@@ -72,6 +93,20 @@ public abstract class Node {
             int index = parent_arguments.indexOf(this);
             parent.setChild(otherNode, index);
             otherNode.setParent(parent);
+        }
+    }
+
+    public int depth(){
+        int max_depth = 0;
+        for(Node node: arguments){
+            max_depth = Math.max(max_depth, 1 + node.depth());
+        }
+        return max_depth;
+    }
+
+    public void repetitions(HashMap<Object, Integer> reps){
+        for(Node node: arguments){
+            node.repetitions(reps);
         }
     }
 
