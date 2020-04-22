@@ -1,5 +1,5 @@
 # CC5114
-<h1>Tareas del curso</h1>
+<h1>Redes Neuronales y Programación Genética - Tareas del curso</h1>
 
 <h2>Consideraciones</h2>
 
